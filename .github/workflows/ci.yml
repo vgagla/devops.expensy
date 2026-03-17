@@ -44,3 +44,41 @@ jobs:
         run: npm run build
       - name: Lint
         run: npm run lint
+
+  docker:
+    name: Build + Push Docker Images to ECR
+    needs: [backend, frontend]
+    runs-on: ubuntu-latest
+    env:
+      ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+      BACKEND_REPO: devopsexpensy-backend
+      FRONTEND_REPO: devopsexpensy-frontend
+      IMAGE_TAG: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Ensure ECR repositories exist
+        run: |
+          aws ecr describe-repositories --repository-names $BACKEND_REPO || aws ecr create-repository --repository-name $BACKEND_REPO
+          aws ecr describe-repositories --repository-names $FRONTEND_REPO || aws ecr create-repository --repository-name $FRONTEND_REPO
+
+      - name: Build and push backend Docker image
+        run: |
+          docker build -t $ECR_REGISTRY/$BACKEND_REPO:$IMAGE_TAG expensy_backend
+          docker push $ECR_REGISTRY/$BACKEND_REPO:$IMAGE_TAG
+
+      - name: Build and push frontend Docker image
+        run: |
+          docker build -t $ECR_REGISTRY/$FRONTEND_REPO:$IMAGE_TAG expensy_frontend
+          docker push $ECR_REGISTRY/$FRONTEND_REPO:$IMAGE_TAG
+

@@ -90,9 +90,9 @@ Ingregate the following tools in the CI-CD pipeline before the Infrastructure is
 | Validation    | terraform validate      |
 | Linting       | TFLint                  |
 | Security scan | tfsec . /trivy config . |
-| Compliance    | Checkov            |
+| Compliance    | checkov -d .            |
 
 - **tfscec vs trivy** :
-tfsec may still have slightly more Terraform-specific checks in some cases and some teams keep tfsec for legacy pipelines. While tfsec can provide deeper Terraform-specific checks, Trivy offers broader multi-platform coverage, making it more suitable for unified DevSecOps pipelines. But trend is move to Trivy.
+tfsec may still have slightly more Terraform-specific checks in some cases and some teams keep tfsec for legacy pipelines. While tfsec can provide deeper Terraform-specific checks, trivy offers broader multi-platform coverage, making it more suitable for unified DevSecOps pipelines. But trend is move to trivy.
 
 

@@ -1,0 +1,78 @@
+# =========================
+# Terraform
+# =========================
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform.lock.hcl
+
+# Terraform plan files
+*.tfplan
+tfplan.binary
+tfplan.json
+
+# =========================
+# Environment / Secrets
+# =========================
+.env
+*.env
+*.tfvars
+*.tfvars.json
+secrets.*
+*.key
+*.pem
+
+# =========================
+# DevSecOps / Security Reports
+# =========================
+tfsec-report.json
+trivy-report.json
+checkov-report.json
+*.sarif
+
+# Generic scan outputs
+reports/
+*.report.json
+
+# =========================
+# Python (Checkov etc.)
+# =========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# OS / Editor files
+# =========================
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# IntelliJ
+.idea/
+
+# =========================
+# Docker
+# =========================
+*.tar
+
+# =========================
+# Misc
+# =========================
+tmp/
+temp/

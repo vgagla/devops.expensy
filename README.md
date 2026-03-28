@@ -80,3 +80,29 @@ npm run dev
 - **Backend**: Express, TypeScript, Mongoose, ioredis, prom-client
 - **Database**: MongoDB
 - **Cache**: Redis
+
+## Infrastructure Best practices ( Security, Compliance linting, formatting, validataion )
+Ingregate the following tools in the CI-CD pipeline before the Infrastructure is deployesd. 
+
+| Capability    | Tool               |
+|-------------- |--------------------|
+| Formatting    | terraform fmt      |
+|---------------|--------------------|
+| Validation    | terraform validate |
+|---------------|--------------------|
+| Linting       | TFLint             |
+|---------------|--------------------|
+| Security scan | tfsec . /Trivy     |
+|--------|------|--------------------|
+| Compliance    | Checkov            |
+
+⚠️ Important reality
+
+👉 While Trivy can replace tfsec:
+
+tfsec may still have slightly more Terraform-specific checks in some cases
+Some teams keep tfsec for legacy pipelines
+
+👉 But trend = move to Trivy
+
+
